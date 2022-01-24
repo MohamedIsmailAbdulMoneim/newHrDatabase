@@ -1,0 +1,1 @@
+export const fetchEmpsAppraisals = "FETCH-EMPS-APPRAISAL"

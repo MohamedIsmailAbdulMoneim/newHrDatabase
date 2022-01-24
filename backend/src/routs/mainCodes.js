@@ -1117,7 +1117,6 @@ function getMainCodes(req, res, next) {
 
 function getCates(req, res, next) {
     const query = `SELECT a_category.CAT_ID, CAT_NAME FROM a_category JOIN a_category_org ON a_category.CAT_ID = a_category_org.CAT_ID WHERE ORGANIZATION = 30 and is_shown = "true";`
-    console.log('cates is hit');
     db.query(query, (err, details) => {
         if (err) {
             next(err);
