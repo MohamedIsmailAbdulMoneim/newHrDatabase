@@ -8,7 +8,7 @@ import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import CommentIcon from '@mui/icons-material/Comment';
 
-export default function CheckboxList() {
+export default function CheckboxList({items}) {
   const [checked, setChecked] = React.useState([0]);
 
   const handleToggle = (value) => () => {
@@ -26,7 +26,7 @@ export default function CheckboxList() {
 
   return (
     <List style={{width: 200}} sx={{ bgcolor: 'white' }}>
-      {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 'dasdsadsadsadsadsadsadsadsadsadadadasdsadsad131111111111111'].map((value) => {
+      {items.map((value) => {
         const labelId = `checkbox-list-label-${value}`;
         return (
           <ListItem
@@ -45,7 +45,7 @@ export default function CheckboxList() {
                   inputProps={{ 'aria-labelledby': labelId }}
                 />
               </ListItemIcon>
-              <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
+              <ListItemText id={labelId} primary={`${value}`} />
             </ListItemButton>
           </ListItem>
         );

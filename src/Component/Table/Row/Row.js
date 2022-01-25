@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Cell from './Cell'
 
-const Row = ({ columns, data }) => {
+const Row = ({ columns, data, firstArg, secondArg }) => {
+    const [active, setActive] = useState(false)
+    const handleClick = (e) => {
+        setActive(!active)
+    }
     return (
-        data.map(cell => (
-            <tr key={Math.random(1)}>
+        data.slice(firstArg,secondArg).map(cell => (
+            <tr onClick={handleClick} className={active ? 'table-active' : ''} key={Math.random(1)}>
                 {columns.map(column => (
                     <Cell key={`${cell}_${column.index}`} data={cell[`${column.curser}`]} />
                 ))}
@@ -12,7 +16,6 @@ const Row = ({ columns, data }) => {
 
         ))
     )
-
 }
 
 

@@ -22,7 +22,6 @@ import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import axios from 'axios'
 
 import { mainListItems, secondaryListItems } from './listItems';
 // import Chart from './Chart';
@@ -138,7 +137,7 @@ function DashboardContent() {
                   noWrap
                   sx={{ flexGrow: 1 }}
                 >
-                  <img style={{ height: "50px", float: "left" }} src={logo} />
+                  <img style={{ height: "50px", float: "left" }} alt='logo' src={logo} />
                 </Typography>
                 <IconButton color="inherit">
                   <Badge badgeContent={4} color="secondary">
@@ -178,10 +177,9 @@ function DashboardContent() {
               }}
             >
               <Toolbar />
-              <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+              <Container  maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                 <Grid container spacing={3}>
-                  {/* Chart */}
-                  <Grid item xs={12} md={8} lg={9}>
+                  {/* <Grid item xs={12} md={8} lg={9}>
                     <Paper
                       sx={{
                         p: 2,
@@ -190,7 +188,7 @@ function DashboardContent() {
                         height: 240,
                       }}
                     >
-                      {/* <Chart /> */}
+                      <Chart />
                     </Paper>
                   </Grid>
                   <Grid item xs={12} md={4} lg={3}>
@@ -203,10 +201,9 @@ function DashboardContent() {
                       }}
                     >
                     </Paper>
-                  </Grid>
-                  {/* Recent Orders */}
-                  <Grid item xs={12}>
-                    <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                  </Grid> */}
+                  <Grid  item xs={12} margin={'auto'} >
+                    <Paper style={{ overflow: 'hidden'}} sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
                       <OrgCategories />
                     </Paper>
                   </Grid>
