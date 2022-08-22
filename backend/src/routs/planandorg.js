@@ -257,19 +257,18 @@ function postBulkTrans(req, res, next) {
 }
 
 function getEmpTrans(req, res, next) {
-    const nameOrId = req.query.nameOrId
-
+    
+    
     let query = `select *, (SELECT JOB_ASSIGNMENT_FORM_ARABIC FROM job_assignment_form WHERE job_assignment_form.JOB_ASSIGNMENT_FORM = a_job_trans.JOB_ASSIGNMENT_FORM) as jobassignmentar ,(SELECT station_name FROM stations WHERE a_job_trans.JOB_LOCATION = id) AS station, (SELECT NAME_ARABIC FROM employee WHERE employee.NATIONAL_ID_CARD_NO = a_job_trans.NATIONAL_ID_CARD_NO) as NAME_ARABIC ,(SELECT area_name FROM areas WHERE a_job_trans.JOB_AREA = id) AS AREA, (SELECT GOVERNORATE_ARABIC FROM governorate WHERE a_job_trans.JOB_GOVERNORATE = GOVERNORATE) AS GOV ,a_job_trans.SUP_BOX_NAME AS catename from a_job_trans
      JOIN indicators JOIN a_sup_box JOIN a_category
     JOIN a_job_groups ON a_job_trans.G_ID = a_job_groups.G_ID AND a_category.CAT_ID = a_job_trans.CAT_ID
     AND a_sup_box.SUP_BOX_ID = a_job_trans.SUP_BOX_ID AND
      a_job_trans.INDICATOR = indicators.INDICATOR
-    WHERE NATIONAL_ID_CARD_NO = ${nameOrId} AND a_job_trans.is_shown = "true" ORDER by a_job_trans.TRANS_DATE`
+    WHERE a_job_trans.is_shown = "true" ORDER by a_job_trans.TRANS_DATE`
     db.query(query, (err, details) => {
         if (err) {
             next(err);
         } else {
-            
             res.send(details);
         }
     })

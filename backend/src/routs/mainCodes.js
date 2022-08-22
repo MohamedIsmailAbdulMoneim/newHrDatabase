@@ -6,8 +6,6 @@ const multer = require('multer');
 const { post } = require("jquery");
 const upload = multer({ dest: './frontend/src/uploads/' })
 
-
-
 function getsupboxmangers(req, res, next) {
     const mainid = req.params.mainid
     let query = `SELECT a_sup_box.SUP_BOX_NAME AS emp_box_name, manager.SUP_BOX_NAME AS manager_box_name,manager.SUP_BOX_ID AS manager_box_id, a_sup_box.SUP_BOX_ID AS emp_box_id, a_sup_box.SUP_BOX_NAME AS emp_box_name , latest.NAME_ARABIC FROM a_sup_box JOIN( SELECT * FROM a_sup_box ) AS manager JOIN( SELECT employee.NATIONAL_ID_CARD_NO, a_job_trans.TRANS_DATE, a_job_trans.SUP_BOX_ID, employee.NAME_ARABIC FROM a_job_trans JOIN employee ON a_job_trans.NATIONAL_ID_CARD_NO = employee.NATIONAL_ID_CARD_NO WHERE a_job_trans.INDICATOR = 2 ) AS latest ON a_sup_box.SUP_BOX_ID_P = manager.SUP_BOX_ID AND latest.SUP_BOX_ID = a_sup_box.SUP_BOX_ID WHERE a_sup_box.MAIN_BOX_ID = ${mainid}`
@@ -1116,7 +1114,7 @@ function getMainCodes(req, res, next) {
 /* ------------------cates--------------------------------------------------------*/
 
 function getCates(req, res, next) {
-    const query = `SELECT a_category.CAT_ID, CAT_NAME FROM a_category JOIN a_category_org ON a_category.CAT_ID = a_category_org.CAT_ID WHERE ORGANIZATION = 30 and is_shown = "true";`
+    const query = `SELECT a_category.CAT_ID, ROW_ID ,CAT_NAME FROM a_category JOIN a_category_org ON a_category.CAT_ID = a_category_org.CAT_ID WHERE ORGANIZATION = 30 and is_shown = "true";`
     db.query(query, (err, details) => {
         if (err) {
             next(err);
@@ -1191,7 +1189,7 @@ function addCatOrg(req, res, next) {
 /* ------------------cates--------------------------------------------------------*/
 
 function getEmpNameById(req, res, next) {
-    const empid = req.params.empid
+    const empid = req.q.empid
     // const query = `SELECT employee.NAME_ARABIC, employee.EMPLOYEE_ID ,employee.NATIONAL_ID_CARD_NO ,empmainbox.SUP_BOX_NAME, empmainbox.MAIN_BOX_ID, employee.NATIONAL_ID_CARD_NO FROM employee JOIN (SELECT a_job_trans.SUP_BOX_ID, a_sup_box.SUP_BOX_NAME , a_job_trans.NATIONAL_ID_CARD_NO, a_sup_box.MAIN_BOX_ID FROM a_job_trans JOIN a_sup_box ON a_job_trans.SUP_BOX_ID = a_sup_box.SUP_BOX_ID WHERE a_job_trans.INDICATOR = 2 ) AS empmainbox ON employee.NATIONAL_ID_CARD_NO = empmainbox.NATIONAL_ID_CARD_NO WHERE EMPLOYEE_ID = ${empid}`
     let query = `SELECT NAME_ARABIC FROM employee WHERE EMPLOYEE_ID = ${empid}`
     db.query(query, (err, details) => {
@@ -1204,7 +1202,8 @@ function getEmpNameById(req, res, next) {
 }
 
 function getEmpNameByName(req, res, next) {
-    let empname = req.params.empname
+    
+    let empname = req.query.empname
     let query = `SELECT NAME_ARABIC, EMPLOYEE_ID, NATIONAL_ID_CARD_NO FROM employee WHERE NAME_ARABIC  LIKE "%${empname}%"`
     db.query(query, (err, details) => {
         if (err) {
@@ -1626,7 +1625,7 @@ router
     .put('/deletecategory', deleteCat)
     .post('/cateorg', addCatOrg)
     .get('/empnamebyid/:empid', getEmpNameById)
-    .get('/empnamebyName/:empname', getEmpNameByName)
+    .get('/empnamebyName', getEmpNameByName)
     .get('/outsourceempnamebyName/:empname', getOutsourceEmpNameByName)
     .get('/specarabic', getQulSpeciality)
     .get('/stations', getStations)

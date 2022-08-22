@@ -161,6 +161,28 @@ function getNatIdExpired(req, res, next) {
     })
 }
 
+function getStructRep(req, res, next) {
+    let query = `SELECT a_sup_box.SUP_BOX_NAME AS emp_box_name, a_main_box.CAT_ID, a_main_box.J_D_ID, a_main_box.MAIN_BOX_ID,
+    (select cat_name from a_category where a_category.CAT_ID =  a_main_box.CAT_ID) as catname ,
+    (select G_NAME from a_job_groups where a_job_groups.G_ID = a_sup_box.G_ID) as gname ,
+    (select G_ID from a_job_groups where a_job_groups.G_ID = a_sup_box.G_ID) as gid ,
+    (select j_d_name from a_job_dgree where a_job_dgree.J_D_ID = a_main_box.J_D_ID) as jdnamea_sup_box ,
+    a_sup_box.SUP_BOX_ID AS emp_box_id, a_sup_box.SUP_BOX_NAME AS emp_box_name
+    FROM a_sup_box JOIN( SELECT * FROM a_sup_box ) AS manager
+    join a_main_box ON a_sup_box.SUP_BOX_ID_P = manager.SUP_BOX_ID and
+    a_main_box.MAIN_BOX_ID = a_sup_box.MAIN_BOX_ID order by catname;
+    SELECT JOB_ASSIGNMENT_FORM, JOB_ASSIGNMENT_FORM_ARABIC FROM hr_database.job_assignment_form;
+    SELECT INDICATOR, INDICATOR_NAME FROM indicators;
+    `
+    db.query(query, (err, data) => {
+        if (err) {
+            next(err)
+        } else {
+            res.send(data)
+        }
+    })
+}
+
 router
     .get('/getdeps', getDeps)
     .get('/getempbydeps/:dep', getEmpByDeps)
@@ -173,6 +195,7 @@ router
     .get('/countempsingoverns', countEmpsInGoverns)
     .get('/gethierarchicaldata', gethierarchicaldata)
     .get('/getnatidexpired', getNatIdExpired)
+    .get('/getStructRep', getStructRep)
 
 
 

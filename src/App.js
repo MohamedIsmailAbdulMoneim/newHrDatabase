@@ -26,7 +26,9 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
 // import Chart from './Chart';
 import OrgCategories from './Component/MainComponent/OrgCategories/OrgCategories'
+import Transactions from './Component/TransactionComponents/Transaction/Transactions';
 import logo from './logo.png'
+import NameSearch from './Component/NameSearch'
 
 function Copyright(props) {
   const cacheRtl = createCache({
@@ -130,6 +132,8 @@ function DashboardContent() {
                 >
                   <MenuIcon />
                 </IconButton>
+                <NameSearch />
+
                 <Typography
                   component="h1"
                   variant="h6"
@@ -204,7 +208,7 @@ function DashboardContent() {
                   </Grid> */}
                   <Grid  item xs={12} margin={'auto'} >
                     <Paper style={{ overflow: 'hidden'}} sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                      <OrgCategories />
+                      <Transactions />
                     </Paper>
                   </Grid>
                 </Grid>

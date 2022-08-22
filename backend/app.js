@@ -15,6 +15,7 @@ require('dotenv').config();
 
 
 
+
 app.use(session({
   key: 'session_cookie_name',
   secret: 'session_cookie_secret',
@@ -43,7 +44,8 @@ app.use(
   })
 );
 
-// app.use(cors())
+
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(mainCodes)
@@ -52,32 +54,32 @@ app.use(report)
 app.use(users)
 
 app.use(
-  express.static("frontend/src/uploads")
+  express.static("../src/uploads")
 );
 
 app.use(
-  express.static("frontend/src/css/rtl")
+  express.static("../src/css")
 );
 app.use(
-  express.static("frontend/src/fonts")
+  express.static("../src/fonts")
 );
 
-app.use(
-  express.static("frontend/build")
-);
+// app.use(
+//   express.static("frontend/build")
+// );
 
-app.get("*", (req, res) => {
-  res.sendFile(
-    path.resolve(__dirname, 'frontend', 'build', 'index.html')
-  );
+// app.get("*", (req, res) => {
+//   res.sendFile(
+//     path.resolve(__dirname, 'frontend', 'build', 'index.html')
+//   );
 
-})
+// })
 
 app.use((error, req, res, next) => {
   next(error)
 })
 
-var port = process.env.PORT || 5000;
+var port = process.env.PORT || 5555;
 app.listen(port, function () {
   console.log("connected on port " + port);
 });
