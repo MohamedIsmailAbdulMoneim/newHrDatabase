@@ -2,12 +2,9 @@ import select from '../inputs/select'
 import contentEditable from '../inputs/contentEditable';
 
 export const getColumns = ({ criteria, supBox, jobAsForm, indecator }) => {
-    console.log(criteria);
     const catname = supBox.map(x => ({ name: x.catname, id: x.CAT_ID }))
-    let MAIN_BOX_NAME = supBox.map(x => ({ name: x.jdnamea_sup_box, id: x.MAIN_BOX_ID, catname: x.catname, SUP_BOX_NAME: x.emp_box_name})).filter(x =>{
-         return x.catname === criteria.catname || x.SUP_BOX_NAME === criteria.SUP_BOX_NAME
-        })
-    const SUP_BOX_NAME = supBox.map(x => ({ name: x.emp_box_name, id: x.emp_box_id, catname: x.catname , MAIN_BOX_NAME: x.MAIN_BOX_NAME })).filter(x => x.catname === criteria.catname || x.MAIN_BOX_NAME === criteria.MAIN_BOX_NAME )
+    const MAIN_BOX_NAME = supBox.map(x => ({ name: x.jdnamea_sup_box, id: x.MAIN_BOX_ID, catname: x.catname, SUP_BOX_NAME: x.emp_box_name})).filter(x => x.catname === criteria.catname || x.SUP_BOX_NAME === criteria.SUP_BOX_NAME)
+    const SUP_BOX_NAME = supBox.map(x => ({ name: x.emp_box_name, id: x.emp_box_id, catname: x.catname ,MAIN_BOX_NAME: x.jdnamea_sup_box })).filter(x => x.catname === criteria.catname).filter(x => x.MAIN_BOX_NAME === criteria.MAIN_BOX_NAME)
     const gname = supBox.map(x => ({ name: x.gname, id: x.gid, criteria: x.gid }))
     const jobasform = jobAsForm.map(x => ({name: x.JOB_ASSIGNMENT_FORM_ARABIC, id: x.JOB_ASSIGNMENT_FORM, criteria: x.JOB_ASSIGNMENT_FORM }))
     const indecator_2 = indecator.map(x=> ({name: x.INDICATOR_NAME, id: x.INDICATOR, criteria: x.INDICATOR}))

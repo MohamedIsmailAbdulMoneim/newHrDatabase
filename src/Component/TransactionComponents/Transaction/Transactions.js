@@ -27,10 +27,10 @@ const Transactions = () => {
     }, [name, JSON.stringify(transactions), JSON.stringify(supBox)])
 
     const updateTransaction = (data) => {
-        console.log(data);
+
         setCriteria(old => ({
             ...old,
-            [data.name]: [data.id][0]
+            [data.name]: [data.value][0]
         })
         )
     }
