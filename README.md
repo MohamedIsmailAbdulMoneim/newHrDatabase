@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# newHrDatabase
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a new version with new Ui of OldHrDatabase
 
 ## Available Scripts
 
